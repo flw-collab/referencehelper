@@ -28,6 +28,9 @@ For example: A reference like `25100-300`. The right end of the reference, e.g. 
 1. Press <kbd>Win</kbd> + <kbd>1</kbd> to copy.
 1. Select the position where you want the new reference to be inserted. _Please note: if no text is selected, the first character before the mouse pointer will be replaced._
 1. Press <kbd>Win</kbd> + <kbd>2</kbd> to insert the new reference, e.g. `25100-301`.
+1. Select the position where you want the next reference to be inserted. _Please note: if no text is selected, the first character before the mouse pointer will be replaced._
+1. Press <kbd>Win</kbd> + <kbd>2</kbd> to insert the next reference, e.g. `25100-302`.
+1. ...
 
 ## Built With
 
