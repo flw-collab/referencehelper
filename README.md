@@ -4,7 +4,7 @@ Helps you to comfortably insert successive references.
 
 # Getting Started
 
-For example: A reference like `25100-300`. The right end of the reference, e.g. `01`, will be continued in steps of 1. The new reference would be `25100-301` and so forth. The same is done for endings with letters, e.g. `25100a`.
+For example: A reference like `25100-300`. The right end of the reference, e.g. `300`, will be continued in steps of 1. The new reference would be `25100-301` and so forth. The same is done for endings with letters, e.g. `25100a`.
 
 # Hotkeys
 
