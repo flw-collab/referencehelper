@@ -10,19 +10,23 @@ For example: A reference like `25100-300`. The right end of the reference, e.g. 
 
 <kbd>Win</kbd> + <kbd>1</kbd>: Copy highlighted reference.
 
-<kbd>Win</kbd> + <kbd>2</kbd>: Replaces the highlighted text or, if no text is selected, the first letter or digit before the mouse pointer with the next reference.
+<kbd>Win</kbd> + <kbd>2</kbd>: Replaces the highlighted text or, if no text is selected, the first character before the mouse pointer with the next reference.
 
 <kbd>Win</kbd> + <kbd>3</kbd>: Resets the next reference by one step.
 
 <kbd>Alt</kbd> + <kbd>Esc</kbd>: Exit script.
 
-### Installing and Using
+### Installing 
 
-1. Download the latest release and execute the script (ZIP-file from https://autohotkey.com/download/ for the compiler (`.AHK` to `.EXE`), for additional information please refer to https://ahkde.github.io/docs/Tutorial.htm). 
+* Download the latest release and execute the script.
+  * If you don't want to install [Autohotkey](https://www.autohotkey.com/) the ZIP-file from https://autohotkey.com/download/ includes the compiler program to create an executable `.EXE`from the release file `.AHK`.
+  * For additional information please refer to https://ahkde.github.io/docs/Tutorial.htm. 
+
+### Using
+
 1. Highlight your reference (with your mouse), e.g. `25100-300`.
 1. Press <kbd>Win</kbd> + <kbd>1</kbd> to copy.
-1. Select the position where you want the new reference to be inserted.
-1. Please note: if no text is selected, the first letter or digit before the mouse pointer will be replaced.
+1. Select the position where you want the new reference to be inserted. _Please note: if no text is selected, the first character before the mouse pointer will be replaced._
 1. Press <kbd>Win</kbd> + <kbd>2</kbd> to insert the new reference, e.g. `25100-301`.
 
 ## Built With
