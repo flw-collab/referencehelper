@@ -2,11 +2,11 @@
 
 Helps you to comfortably insert successive references.
 
-# Getting Started
+## Getting Started
 
 For example: A reference like `25100-300`. The right end of the reference, e.g. `300`, will be continued in steps of 1. The new reference would be `25100-301` and so forth. The same is done for endings with letters, e.g. `25100a`.
 
-# Hotkeys
+## Hotkeys
 
 <kbd>Win</kbd> + <kbd>1</kbd>: Copy highlighted reference.
 
@@ -16,13 +16,13 @@ For example: A reference like `25100-300`. The right end of the reference, e.g. 
 
 <kbd>Alt</kbd> + <kbd>Esc</kbd>: Exit script.
 
-### Installing 
+## Installing 
 
 * Download the latest release and execute the script.
   * If you don't want to install [Autohotkey](https://www.autohotkey.com/) the ZIP-file from https://autohotkey.com/download/ includes the compiler program to create an executable `.EXE`from the release file `.AHK`.
   * For additional information please refer to https://ahkde.github.io/docs/Tutorial.htm. 
 
-### Using
+## Using
 
 1. Highlight your reference (with your mouse), e.g. `25100-300`.
 1. Press <kbd>Win</kbd> + <kbd>1</kbd> to copy.
