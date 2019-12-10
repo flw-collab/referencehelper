@@ -94,6 +94,7 @@ return
 	MsgBox, 16, , Please use hotkey Win+1 to import a reference from a selected text first.
 	Exit
 	} 
+	vModus = 1
 	CaseReset_Function()
 	return
 }
@@ -164,10 +165,10 @@ CaseDigit_Function(){
 		{	
 		vEndNew = %vEnd%
 		vEndNew++
-		} ;else if (vModus = 1) {
-			; vEndNew = %vEnd%
-			; vEndNew--
-			; }
+		} else if (vModus = 1) {
+			 vEndNew = %vEnd%
+			 vEndNew--
+			 }
 	
 	;check for leading Zero
 		FoundLeadingZeros := ""
@@ -325,8 +326,7 @@ CaseReset_Function(){
 	
 	If (vCase = "CaseDigit") 
 	{
-	vEnd--
-		vEnd--
+	;vEnd--
 	CaseDigit_Function()
 	} 
 	Else if (vCase = "CaseNonDigit") 
@@ -344,6 +344,24 @@ CaseReset_Function(){
 	SplashTextOn ,200 ,75 , Info, Next reference will be:`n%vReferenceNew%
 	Sleep 500
 	SplashTextOff
+	
+		If (vCase = "CaseDigit") 
+	{
+	vEnd--
+	CaseDigit_Function()
+	} 
+	Else if (vCase = "CaseNonDigit") 
+	{
+	
+		If (vEndNonDigitCounter = 1) {
+		vEndNonDigitCounter := NonDigitArray.Length()
+		}
+		
+		vEndNonDigitCounter--
+	
+		CaseNonDigitRepeat_Function()	
+	}
+	
 	vEnd := vEndNew
 	vModus := "" 
 	return		
