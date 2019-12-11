@@ -16,35 +16,29 @@
     ; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-;#Warn  ; Enable warnings to assist with detecting common errors.
+#Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-#Persistent
+
+;#Persistent
 Menu, Tray, Tip , Referencehelper:`n`nWIN+1: Copy`nWIN+2: Insert next`nWIN+3: Reset by one`n`n(C) 2019 Felix L. Wenger
 Menu, Tray, Add  ; Creates a separator line.
 Menu, Tray, Add, Readme, MenuHandler ; Creates a new menu item.
-return
-
-MenuHandler:
-Run https://github.com/flw-collab/referencehelper/
-return
-
-!esc::ExitApp ; Alt+Esc to close/exit script 
 
 ;Declare variables and options
-	vReferenceOriginal := "" 
-	vReferenceNew :=
-	vReferenceOld :=
-	vReferenceOriginalTrimmed :=
-	LeadingZeros :=
-	vEnd := "" ; the current reference end
-	vEndNew := "" ; the new reference end
-	vModus := 0 ; 0 = import new reference; 1 = reset, i.e. go back one increment; 2 = output new reference to cursor selection
-	vCase := 0 ; the modus that this script works with, i.e., do we work with a digit or non-digit reference end
-	;Optional
-	vDebug := 0 ; 1 = show debug menu
+vReferenceOriginal := "" 
+vReferenceNew :=
+vReferenceOld :=
+vReferenceOriginalTrimmed :=
+LeadingZeros :=
+vEnd := "" ; the current reference end
+vEndNew := "" ; the new reference end
+vModus := 0 ; 0 = import new reference; 1 = reset, i.e. go back one increment; 2 = output new reference to cursor selection
+vCase := 0 ; the modus that this script works with, i.e., do we work with a digit or non-digit reference end
+vDebug := 0 ; 1 = show debug menu
 
+!esc::ExitApp ; Alt+Esc to close/exit script 
 
 #1::
 { ;Win+1 to copy reference
@@ -93,15 +87,38 @@ return
 	{
 	MsgBox, 16, , Please use hotkey Win+1 to import a reference from a selected text first.
 	Exit
-	} 
-	vModus = 1
+	} Else { 
+	vModus := 1
 	CaseReset_Function()
-	return
+	}
+
+	
+	If vDebug = 1 
+	{
+	MsgBox, 64, Debug, 
+	( LTrim
+	CaseReset_Function: Debug
+	vModus: %vModus%
+	vCase: %vCase%
+	vEnd: %vEnd%
+	vEndNew: %vEndNew%
+	vReferenceNew: %vReferenceNew%
+	)
+	}
+	return	
 }
 
 ImportReference_Function(){
 	
 	global
+	
+		; If vDebug = 1 
+		; {
+		; MsgBox, 64, Debug, 
+		; ( LTrim
+		; ImportReference_Function started.
+		; )
+		; }
 	
 	;##########Step 1 - Import reference from selection through the clipboard
 		ClipSaved := ClipboardAll
@@ -161,12 +178,21 @@ CaseDigit_Function(){
 	;##########Step 3a - Work with digit reference
 	; CaseDigit:
 	
+		; If vDebug = 1 
+		; {
+		; MsgBox, 64, Debug, 
+		; ( LTrim
+		; CaseDigit_Function started.
+		; )
+		; }
+	
 	If (vModus != 1) 
 		{	
 		vEndNew = %vEnd%
 		vEndNew++
 		} else if (vModus = 1) {
 			 vEndNew = %vEnd%
+			 vEndNew--
 			 vEndNew--
 			 }
 	
@@ -209,11 +235,34 @@ CaseDigit_Function(){
 		vModus := ""
 		} 
 		return
+		
+		If (vModus = 1) 
+		{
+		vEndNewTemp := vEndNew
+		vEndNewTemp++
+		vReferenceNewTemp := vReferenceOriginalTrimmed vEndNewTemp ;join shortened reference with new reference end
+		
+		SplashTextOn ,200 ,75 , Info, Next reference will be:`n%vReferenceNewTemp% 
+		Sleep 5000
+		SplashTextOff
+		
+		vReferenceNewTemp := ""
+		vEnd := vEndNew
+		vModus := ""
+		} 
 	}
 
 CaseNonDigit_Function(){
 
 	global
+	
+		; If vDebug = 1 
+		; {
+		; MsgBox, 64, Debug, 
+		; ( LTrim
+		; CaseNonDigit_Function started.
+		; )
+		; }
 
 	;##########Step 3b - Work with non-digit reference	
 	;CaseNonDigit:
@@ -258,6 +307,14 @@ CaseNonDigit_Function(){
 CaseNonDigitRepeat_Function(){
 
 	global
+	
+		; If vDebug = 1 
+		; {
+		; MsgBox, 64, Debug, 
+		; ( LTrim
+		; CaseNonDigitRepeat_Function started.
+		; )
+		; }
 		
 		If HasVal(NonDigitArray, vEnd) = 0 {
 
@@ -278,9 +335,10 @@ CaseNonDigitRepeat_Function(){
 		}			
 		else if (vModus != 1) {
 			vEndNonDigitCounter++
-		} ;else if (vModus = 1) {
-		;	 vEndNonDigitCounter--
-		;	 }
+		} else if (vModus = 1) {
+			 vEndNonDigitCounter--
+			 vEndNonDigitCounter--
+			 }
 			
 		vEndNew := NonDigitArray[vEndNonDigitCounter]
 		
@@ -307,6 +365,22 @@ CaseNonDigitRepeat_Function(){
 		vEnd := vEndNew
 		vModus := ""
 		} 
+		
+		If (vModus = 1) 
+		{
+		vEndNonDigitCounterTemp := vEndNonDigitCounter
+		vEndNonDigitCounterTemp++
+		vEndNewTemp := NonDigitArray[vEndNonDigitCounterTemp]
+		vReferenceNewTemp := vReferenceOriginalTrimmed vEndNewTemp ;join shortened reference with new reference end
+		
+		SplashTextOn ,200 ,75 , Info, Next reference will be:`n%vReferenceNewTemp% 
+		Sleep 5000
+		SplashTextOff
+		
+		vReferenceNewTemp := ""
+		vEnd := vEndNew
+		vModus := ""
+		} 
 	
 	return
 	}
@@ -324,6 +398,14 @@ CaseReset_Function(){
 
 	global
 	
+	If vDebug = 1 
+	{
+	MsgBox, 64, Debug, 
+	( LTrim
+	CaseReset_Function started.
+	)
+	}
+
 	If (vCase = "CaseDigit") 
 	{
 	;vEnd--
@@ -336,33 +418,37 @@ CaseReset_Function(){
 		vEndNonDigitCounter := NonDigitArray.Length()
 		}
 		
-		vEndNonDigitCounter--
+		;vEndNonDigitCounter--
 	
 		CaseNonDigitRepeat_Function()	
 	}
 	
-	SplashTextOn ,200 ,75 , Info, Next reference will be:`n%vReferenceNew%
-	Sleep 500
-	SplashTextOff
+	; SplashTextOn ,200 ,75 , Info, Next reference will be:`n%vReferenceNew%
+	; Sleep 500
+	; SplashTextOff
 	
-		If (vCase = "CaseDigit") 
-	{
-	vEnd--
-	CaseDigit_Function()
-	} 
-	Else if (vCase = "CaseNonDigit") 
-	{
+		; If (vCase = "CaseDigit") 
+	; {
+	; vEnd--
+	; CaseDigit_Function()
+	; } 
+	; Else if (vCase = "CaseNonDigit") 
+	; {
 	
-		If (vEndNonDigitCounter = 1) {
-		vEndNonDigitCounter := NonDigitArray.Length()
-		}
+		; If (vEndNonDigitCounter = 1) {
+		; vEndNonDigitCounter := NonDigitArray.Length()
+		; }
 		
-		vEndNonDigitCounter--
+		; vEndNonDigitCounter--
 	
-		CaseNonDigitRepeat_Function()	
-	}
+		; CaseNonDigitRepeat_Function()	
+	; }
 	
 	vEnd := vEndNew
 	vModus := "" 
 	return		
-	}
+}
+	
+MenuHandler:
+Run https://github.com/flw-collab/referencehelper/
+return
