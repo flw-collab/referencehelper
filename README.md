@@ -42,7 +42,7 @@ Please contact the author.
 
 ## Authors
 
-* **Felix L. Wenger** - [felixwenger](https://github.com/felixwenger)
+* **Felix L. Wenger** - [fwenger](https://github.com/fwenger)
 
 ## License
 
