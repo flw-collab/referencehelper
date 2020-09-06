@@ -42,9 +42,7 @@ Please contact the author.
 
 ## Authors
 
-* **Felix L. Wenger** - [flw-collab](https://github.com/flw-collab)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Felix L. Wenger** - [felixwenger](https://github.com/felixwenger)
 
 ## License
 
